@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  bewise_test_pgdb:
+    image: postgres
+    container_name: bewise_test_pgdb
+    restart: unless-stopped
+    env_file:
+      - .env.dev
+    ports:
+      - "1882:5432"
+    volumes:
+      - bewise-test-pgdata:/var/lib/postgresql/data
+
+  bewise_test_app:
+    build: .
+    platform: linux/amd64
+    container_name: bewise_test_app
+    restart: unless-stopped
+    depends_on:
+      - bewise_test_pgdb
+    tty: true
+    env_file:
+      - .env.dev
+    ports:
+      - "1883:8000"
+
+volumes:
+  bewise-test-pgdata:
