@@ -6,7 +6,7 @@ services:
     container_name: bewise_test_pgdb
     restart: unless-stopped
     env_file:
-      - .env.dev
+      - .env
     ports:
       - "1882:5432"
     volumes:
@@ -21,7 +21,7 @@ services:
       - bewise_test_pgdb
     tty: true
     env_file:
-      - .env.dev
+      - .env
     ports:
       - "1883:8000"
 
